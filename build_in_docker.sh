@@ -49,7 +49,7 @@ fi
 
 # ---- 容器内编译 ----
 mkdir -p "${SCRIPT_DIR}/build"
-sudo rm -rf "${SCRIPT_DIR}/build/"*
+# sudo rm -rf "${SCRIPT_DIR}/build/"*
 
 docker run --platform linux/arm64 --rm \
   -v "${PROJECT_ROOT}":/work \
@@ -58,6 +58,7 @@ docker run --platform linux/arm64 --rm \
   "${IMAGE_TAG}" \
   bash -c "
     set -e
+    git config --global --add safe.directory /work/${DIR_NAME}
     source /opt/ros/\${ROS_DISTRO}/setup.bash
     dpkg -i /work/${DIR_NAME}/${DEB_NAME} 2>/dev/null || apt-get install -y -f
     cd /work/${DIR_NAME}/build

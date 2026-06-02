@@ -10,4 +10,6 @@ FROM ros:${ROS_DISTRO}-ros-base
 
 ENV DEBIAN_FRONTEND=noninteractive TZ=Asia/Shanghai
 
+RUN apt-get update -qq && apt-get install -y -qq libboost-dev && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /work
