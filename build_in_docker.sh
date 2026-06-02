@@ -56,14 +56,14 @@ docker run --platform linux/arm64 --rm \
   -v "${SCRIPT_DIR}/build":/work/${DIR_NAME}/build \
   -e ROS_DISTRO="${ROS_DISTRO}" \
   "${IMAGE_TAG}" \
-  bash -c "
+  bash -c '
     set -e
-    git config --global --add safe.directory /work/${DIR_NAME}
-    source /opt/ros/\${ROS_DISTRO}/setup.bash
-    dpkg -i /work/${DIR_NAME}/${DEB_NAME} 2>/dev/null || apt-get install -y -f
-    cd /work/${DIR_NAME}/build
-    cmake /work/${DIR_NAME}
-    make -j\$(nproc)
-  "
+    git config --global --add safe.directory /work/'"${DIR_NAME}"'
+    source /opt/ros/${ROS_DISTRO}/setup.bash
+    dpkg -i /work/'"${DIR_NAME}"'/'"${DEB_NAME}"' 2>/dev/null || apt-get install -y -f
+    cd /work/'"${DIR_NAME}"'/build
+    cmake /work/'"${DIR_NAME}"'
+    make -j$(nproc)
+  '
 
 echo "Done. Build output in: ${SCRIPT_DIR}/build/"
